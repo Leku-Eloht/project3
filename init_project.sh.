@@ -1,0 +1,66 @@
+#!/bin/bash
+
+echo "Welcome to Project Initialization Script"
+echo "---------------------------------------"
+
+# Function to create a Python project
+create_python_project() {
+  project_name=$1
+
+  # Create project directory
+  mkdir "$project_name"
+
+  # Create Python starter file
+  echo "#!/usr/bin/env python3" > "$project_name.py"
+  echo "print('Hello, World!')" >> "$project_name.py"
+  chmod +x "$project_name.py"
+
+  # Create README file
+  echo "Project: $project_name" > README.md
+  echo "" >> README.md
+  echo "This is a Python project." >> README.md
+  echo "You can start by executing the '$project_name.py' script." >> README.md
+}
+
+# Function to create a Bash project
+create_bash_project() {
+  project_name=$1
+
+  # Create project directory
+  mkdir "$project_name"
+
+  # Create Bash starter file
+  echo "#!/bin/bash" > "$project_name.sh"
+  echo "echo 'Hello, World!'" >> "$project_name.sh"
+  chmod +x "$project_name.sh"
+
+  # Create README file
+  echo "Project: $project_name" > README.md
+  echo "" >> README.md
+  echo "This is a Bash project." >> README.md
+  echo "You can start by executing the '$project_name.sh' script." >> README.md
+}
+
+# Prompt user for project name and type
+read -p "Enter the project name: " project_name
+read -p "Enter the project type (python/bash): " project_type
+
+# Check project type and execute the corresponding function
+if [ "$project_type" = "python" ]; then
+  create_python_project "$project_name"
+elif [ "$project_type" = "bash" ]; then
+  create_bash_project "$project_name"
+else
+  echo "Invalid project type. Please choose 'python' or 'bash'."
+  exit 1
+fi
+
+# Provide instructions for making the script globally accessible
+echo ""
+echo "Project initialization complete!"
+echo "To make the script globally accessible, consider adding the project directory to your PATH environment variable."
+echo "For example, you can add the following line to your ~/.bashrc or ~/.bash_profile file:"
+echo "export PATH=\"\$PATH:/path/to/project/directory\""
+echo "Don't forget to restart your terminal or run 'source ~/.bashrc' after making the changes."
+
+exit 0
